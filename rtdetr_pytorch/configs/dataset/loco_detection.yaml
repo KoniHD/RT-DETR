@@ -6,9 +6,9 @@ remap_mscoco_category: False
 train_dataloader: 
   type: DataLoader
   dataset: 
-    type: LocoDetection
-    img_folder: /workspace/loco/images/train/
-    ann_file: /workspace/loco/labels/train-subset.json
+    type: CocoDetection
+    img_folder: /content/loco/images/train/
+    ann_file: /content/loco/labels/train/train-subset.json
     transforms:
       type: Compose
       ops: ~
@@ -21,9 +21,9 @@ train_dataloader:
 val_dataloader:
   type: DataLoader
   dataset: 
-    type: LocoDetection
-    img_folder: /workspace/loco/images/val/
-    ann_file: /workspace/loco/labels/val-subset.json
+    type: CocoDetection
+    img_folder: /content/loco/images/val/
+    ann_file: /content/loco/labels/val/val-subset.json
     transforms:
       type: Compose
       ops: ~ 
