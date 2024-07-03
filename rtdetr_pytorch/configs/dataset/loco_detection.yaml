@@ -8,7 +8,7 @@ train_dataloader:
   dataset: 
     type: LocoDetection
     img_folder: /workspace/loco/images/train/
-    ann_file: /workspace/loco/labels/train-subsets.json
+    ann_file: /workspace/loco/labels/train-subset.json
     transforms:
       type: Compose
       ops: ~
@@ -23,7 +23,7 @@ val_dataloader:
   dataset: 
     type: LocoDetection
     img_folder: /workspace/loco/images/val/
-    ann_file: /workspace/loco/labels/val-subsets.json
+    ann_file: /workspace/loco/labels/val-subset.json
     transforms:
       type: Compose
       ops: ~ 
