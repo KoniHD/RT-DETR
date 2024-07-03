@@ -24,6 +24,14 @@ import argparse
 import json
 from tqdm import tqdm
 
+class_indices = {
+    3: 0,   # small_load_carrier
+    5: 1,   # forklift
+    7: 2,   # pallet
+    10: 3,  # stillage
+    11: 4   # pallet_truck
+}
+
 def convert_bbox_coco2yolo(img_width, img_height, bbox):
     """
     Convert bounding box from COCO  format to YOLO format
@@ -61,34 +69,6 @@ def convert_bbox_coco2yolo(img_width, img_height, bbox):
     h = h * dh
 
     return [x, y, w, h]
-
-def convert_classid_coco2yolo(loco_id):
-    """
-    Convert class ID from COCO to YOLO format
-
-    Parameters
-    ----------
-    loco_id : int
-        class ID in LOCO format
-
-    Returns
-    -------
-    int
-        class ID in YOLO format
-    """
-    # LOCO class IDs are not sorted, YOLO class IDs are 0-indexed
-    if loco_id == 3:
-        return 0
-    elif loco_id == 5:
-        return 1
-    elif loco_id == 7:
-        return 2
-    elif loco_id == 10:
-        return 3
-    elif loco_id == 11:
-        return 4
-    else:
-        raise ValueError(f"Unknown class ID {loco_id}")
 
 # This script is used to transform the dataset to the YOLO format
 # For use in GitHub Codespaces use '/workspaces' instead of content
@@ -161,7 +141,7 @@ def convert_json_to_yolo_txt(dir):
             anno_txt = os.path.join(dir, img_name.replace(".jpg", ".txt"))
             with open(anno_txt, "w") as f:
                 for anno in anno_in_image:
-                    class_id = convert_classid_coco2yolo(anno["category_id"])
+                    class_id = class_indices[anno["category_id"]]
                     bbox_COCO = anno["bbox"]
                     x, y, w, h = convert_bbox_coco2yolo(img_width, img_height, bbox_COCO)
                     f.write(f"{class_id} {x:.6f} {y:.6f} {w:.6f} {h:.6f}\n")
@@ -219,6 +199,8 @@ def aggregate_coco_annotations(dir, name=None):
     for json_file in json_files:
         with open(os.path.join(dir, json_file), 'r') as f:
             json_data = json.load(f)
+            for anno in json_data["annotations"]:
+                anno["category_id"] = class_indices[anno["category_id"]]
             aggregated_data["images"].extend(json_data["images"])
             aggregated_data["categories"].extend(json_data["categories"])
             aggregated_data["annotations"].extend(json_data["annotations"])
