@@ -1,9 +1,5 @@
 ## RT-DETR: DETRs Beat YOLOs on Real-time Object Detection
-<p align="center">
-    <a href="https://arxiv.org/abs/2304.08069">
-        <img alt="arXiv" src="https://img.shields.io/badge/arXiv-2304.08069-red">
-    </a>
-</p>
+
 
 [![arxiv.org](http://img.shields.io/badge/cs.CV-arXiv%3A2402.13616-B31B1B.svg)](https://arxiv.org/abs/2304.08069)
 [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github.com/KoniHD/RT-DETR/blob/main/train-rtdetr.ipynb)
