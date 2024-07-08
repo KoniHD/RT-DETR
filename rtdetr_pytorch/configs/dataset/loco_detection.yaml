@@ -2,6 +2,8 @@ task: detection
 
 num_classes: 5
 remap_mscoco_category: False
+epoches: 5
+use_amp: True
 
 train_dataloader: 
   type: DataLoader
